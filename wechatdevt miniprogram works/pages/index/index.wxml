@@ -1,0 +1,27 @@
+<view class="container">
+  <!-- 添加水印 -->
+  <view class="watermark">ada出品</view>
+
+  <view class="input-section">
+    <input
+      class="input"
+      placeholder="请输入名单，用空格隔开"
+      value="{{inputNameList}}"
+      bindinput="onInputNameListChange"
+    />
+    <input
+      class="input"
+      placeholder="请输入组数"
+      value="{{groupCount}}"
+      bindinput="onGroupCountChange"
+      type="number"
+    />
+  </view>
+
+  <button class="random-group-btn" bindtap="onRandomGroup">随机平均分组</button>
+
+  <view class="result-section">
+    <text class="result-label">分组结果：</text>
+    <text class="result">{{result}}</text>
+  </view>
+</view>
