@@ -1,0 +1,8 @@
+
+<view style="position: relative; left: 0rpx; top: 381rpx; width: 750rpx; height: 202rpx; display: block; box-sizing: border-box">
+
+<button class="random-group-btn" type="primary" bindtap="gotoz" style="position: relative; left: 0rpx; top: 25rpx">输入分组</button>
+<button type="default" style="position: relative; left: 0rpx; top: 125rpx" bindtap="gotoup">上传分组</button>
+
+</view>
+<view class="watermark">随机分组小程序</view>

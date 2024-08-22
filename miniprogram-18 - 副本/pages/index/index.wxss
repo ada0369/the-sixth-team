@@ -1,0 +1,11 @@
+/* pages/index/index.wxss */
+.watermark {
+  position: absolute;
+  top: 130px; /* 向下移动水印的位置 */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 20px;
+  color: rgba(0, 0, 0, 0.15); /* 提高透明度，使其稍微显眼 */
+  z-index: 10;
+  font-weight: bold;
+}
