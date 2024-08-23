@@ -1,57 +1,99 @@
 Page({
   data: {
     inputNameList: "",
-    groupCount: [],
+    groupCount: "",
+    constraintPair: "",
+    constraintType: null,
+    constraintOptions: ['不分在一组', '分在一组'],
     result: "",
   },
 
-  // 获取用户输入的名单
   onInputNameListChange: function (e) {
     this.setData({
       inputNameList: e.detail.value,
     });
   },
 
-  // 获取用户输入的组数
   onGroupCountChange: function (e) {
     this.setData({
-      groupCount: parseInt(e.detail.value),
+      groupCount: e.detail.value,
     });
   },
 
-  // 随机平均分组
+  onConstraintPairChange: function (e) {
+    this.setData({
+      constraintPair: e.detail.value,
+    });
+  },
+
+  onConstraintTypeChange: function (e) {
+    this.setData({
+      constraintType: e.detail.value,
+    });
+  },
+
   onRandomGroup: function () {
-    const { inputNameList, groupCount } = this.data;
-    if (!inputNameList || groupCount <= 0) {
+    const { inputNameList, groupCount, constraintPair, constraintType } = this.data;
+    if (!inputNameList || !groupCount) {
       wx.showToast({
-        title: "请输入有效的名单和组数",
+        title: "请输入名单和组数",
         icon: "none",
       });
       return;
     }
 
-    // 根据空格分割名字列表
-    const nameList = inputNameList.split(" ").filter(name => name.trim());
-    if (nameList.length < groupCount) {
+    let nameList = inputNameList.split(" ").filter(name => name.trim() !== "");
+    const totalPeople = nameList.length;
+
+    if (totalPeople < groupCount || totalPeople % groupCount !== 0) {
       wx.showToast({
-        title: "组数不能大于名单数量",
+        title: "组数或名单人数不合适",
         icon: "none",
       });
       return;
     }
 
-    // 打乱名字列表顺序
-    const shuffledNames = this.shuffle(nameList);
-
-    // 初始化分组数组
+    const groupSize = totalPeople / groupCount;
     const groups = Array.from({ length: groupCount }, () => []);
 
-    // 将名字均匀分配到每个组
-    shuffledNames.forEach((name, index) => {
-      groups[index % groupCount].push(name);
-    });
+    // 处理约束条件
+    if (constraintType !== null && constraintPair.trim() !== "") {
+      const [name1, name2] = constraintPair.split(" ").map(name => name.trim());
+      if (name1 && name2) {
+        const success = this.handleConstraints(nameList, name1, name2, constraintType, groups, groupSize);
+        if (!success) {
+          wx.showToast({
+            title: "无法满足约束条件",
+            icon: "none",
+          });
+          return;
+        }
+      }
+    }
 
-    // 构建结果字符串
+    // 计算剩余人数
+    let remainingPeople = nameList.length;
+    let remainingGroupSize = groupSize - Math.floor(remainingPeople / groupCount);
+
+    // 平均分配剩余的成员
+    this.shuffle(nameList);
+    let groupIndex = 0;
+
+    while (remainingPeople > 0) {
+      const targetGroup = groups[groupIndex];
+      if (targetGroup.length < groupSize) {
+        targetGroup.push(nameList.shift());
+        remainingPeople--;
+      }
+      groupIndex = (groupIndex + 1) % groupCount;
+
+      // 当某一组达到了目标人数时，跳过它
+      if (targetGroup.length === groupSize - remainingGroupSize) {
+        groupIndex = (groupIndex + 1) % groupCount;
+      }
+    }
+
+    // 生成分组结果
     let result = "";
     groups.forEach((group, index) => {
       result += `第${index + 1}组：${group.join("，")}\n`;
@@ -62,7 +104,31 @@ Page({
     });
   },
 
-  // 洗牌算法：打乱数组顺序
+  // 处理分组约束逻辑
+  handleConstraints(nameList, name1, name2, constraintType, groups, groupSize) {
+    if (constraintType === '0') {
+      // 不分在一组
+      groups[0].push(name1);
+      groups[1].push(name2);
+      nameList.splice(nameList.indexOf(name1), 1);
+      nameList.splice(nameList.indexOf(name2), 1);
+    } else if (constraintType === '1') {
+      // 分在一组
+      const targetGroup = this.findGroupWithSpace(groups, groupSize);
+      if (!targetGroup) return false;
+      targetGroup.push(name1, name2);
+      nameList.splice(nameList.indexOf(name1), 1);
+      nameList.splice(nameList.indexOf(name2), 1);
+    }
+    return true;
+  },
+
+  // 查找有空位的组
+  findGroupWithSpace(groups, groupSize) {
+    return groups.find(group => group.length + 2 <= groupSize);
+  },
+
+  // 洗牌算法，用于打乱数组
   shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -71,3 +137,4 @@ Page({
     return array;
   },
 });
+

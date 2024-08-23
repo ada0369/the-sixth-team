@@ -11,20 +11,21 @@
   position: relative;
 }
 
-/* 水印样式调整 */
+/* 水印样式 */
 .watermark {
   position: absolute;
-  top: 130px; /* 向下移动水印的位置 */
+  top: 50px; /* 调整水印位置 */
   left: 50%;
   transform: translateX(-50%);
   font-size: 20px;
-  color: rgba(0, 0, 0, 0.15); /* 提高透明度，使其稍微显眼 */
+  color: rgba(0, 0, 0, 0.15);
   z-index: 10;
   font-weight: bold;
 }
 
 /* 输入框部分 */
-.input-section {
+.input-section,
+.constraint-section {
   display: flex;
   flex-direction: column;
   width: 90%;
@@ -45,12 +46,15 @@
   transition: all 0.3s ease;
 }
 
-.input:focus {
-  border-color: #1aad19;
-  box-shadow: 0 2px 6px rgba(26, 173, 25, 0.5);
+.picker {
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: #ffffff;
 }
 
-/* 按钮样式 */
 .random-group-btn {
   width: 100%;
   margin-top: 20px;
@@ -69,7 +73,6 @@
   background-color: #128c0e;
 }
 
-/* 结果显示部分 */
 .result-section {
   display: flex;
   flex-direction: column;

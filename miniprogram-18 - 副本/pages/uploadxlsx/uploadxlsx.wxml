@@ -1,7 +1,7 @@
 <view class="container">
   <button bindtap="startGrouping" type="default" style="position: relative; left: 0rpx; top: 165rpx">开始分组</button>
-  <button bindtap="chooseFile" type="primary" style="position: relative; left: 0rpx; top: -1065rpx">选择文件</button>
-  <view wx:if="{{groups.length}}" style="position: relative; left: -199rpx; top: -281rpx;">
+  <button bindtap="chooseFile" type="primary" style="position: relative; left: 0rpx; top: -1135rpx">选择文件</button>
+  <view wx:if="{{groups.length}}" style="position: relative; left: -199rpx; top: -240rpx;">
     <view wx:for="{{groups}}" wx:for-item="group" wx:key="index">
       <view>分组{{index + 1}}:</view>
       <view wx:for="{{group}}" wx:for-item="name" wx:key="name" >
@@ -10,7 +10,7 @@
     </view>
   </view>
 </view>
-<view><input style="width: 750rpx; height: 70rpx; display: block; box-sizing: border-box; position: relative; left: 0rpx; top: -1110rpx"
+<view><input style="width: 750rpx; height: 70rpx; display: block; box-sizing: border-box; position: relative; left: 0rpx; top: -1185rpx"
       class="input"
       placeholder="请输入组数"
       value="{{groupcount}}"
@@ -18,4 +18,4 @@
       type="number"
     /></view>
   
-<view class="watermark">仅支持内容为数字和字母的xlsx文件</view>
+<view class="watermark">部分手机型号可能有显示问题</view>

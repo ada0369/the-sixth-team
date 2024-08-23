@@ -1,7 +1,8 @@
 <view class="container">
-  <!-- 添加水印 -->
+  <!-- 水印 -->
   <view class="watermark">ada出品</view>
 
+  <!-- 输入部分 -->
   <view class="input-section">
     <input
       class="input"
@@ -18,8 +19,26 @@
     />
   </view>
 
+  <!-- 约束条件 -->
+  <view class="constraint-section">
+    <text class="constraint-label">约束条件</text>
+    <input
+      class="input"
+      placeholder="请输入两人名字，用空格隔开，如 '张三 李四'"
+      value="{{constraintPair}}"
+      bindinput="onConstraintPairChange"
+    />
+    <picker mode="selector" range="{{constraintOptions}}" bindchange="onConstraintTypeChange">
+      <view class="picker">
+        {{constraintType !== null ? constraintOptions[constraintType] : '请选择约束类型'}}
+      </view>
+    </picker>
+  </view>
+
+  <!-- 分组按钮 -->
   <button class="random-group-btn" bindtap="onRandomGroup">随机平均分组</button>
 
+  <!-- 结果显示部分 -->
   <view class="result-section">
     <text class="result-label">分组结果：</text>
     <text class="result">{{result}}</text>
