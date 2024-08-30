@@ -1,0 +1,10 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/calculator/calculator",
+    "pages/formula/formula"
+  ],
+  "window": {
+    "navigationBarTitleText": "数学助手"
+  }
+}

@@ -1,0 +1,39 @@
+.container {
+  padding: 20px;
+}
+
+.picker {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+  background-color: #f8f8f8;
+}
+
+.input-group {
+  margin-bottom: 10px;
+}
+
+input {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px;
+  width: 100%;
+}
+
+button {
+  background-color: #1aad19;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  text-align: center;
+  width: 100%;
+}
+
+.result {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+}

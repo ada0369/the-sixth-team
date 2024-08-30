@@ -1,0 +1,35 @@
+<view class="container">
+  <picker mode="selector" range="{{formulas}}" bindchange="onFormulaChange">
+    <view class="picker">
+      {{selectedFormula}}
+    </view>
+  </picker>
+
+  <view wx:if="{{selectedFormula != '选择公式'}}">
+    <view class="input-group" wx:if="{{showLengthInput}}">
+      <text>长度:</text>
+      <input type="number" value="{{length}}" placeholder="请输入长度" bindinput="onLengthInput"/>
+    </view>
+
+    <view class="input-group" wx:if="{{showWidthInput}}">
+      <text>宽度:</text>
+      <input type="number" value="{{width}}" placeholder="请输入宽度" bindinput="onWidthInput"/>
+    </view>
+
+    <view class="input-group" wx:if="{{showHeightInput}}">
+      <text>高度:</text>
+      <input type="number" value="{{height}}" placeholder="请输入高度" bindinput="onHeightInput"/>
+    </view>
+
+    <view class="input-group" wx:if="{{showBaseRadiusInput}}">
+      <text>半径:</text>
+      <input type="number" value="{{baseRadius}}" placeholder="请输入底面半径" bindinput="onBaseRadiusInput"/>
+    </view>
+
+    <button bindtap="calculateFormula">计算</button>
+  </view>
+
+  <view class="result">
+    <text>{{result}}</text>
+  </view>
+</view>
